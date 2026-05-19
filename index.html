@@ -29,7 +29,7 @@
     }).addTo(map);
 
     // Загрузка данных о музеях
-    fetch('https://raw.githubusercontent.com/serezaolejnikov/museums-project/main/data/museums.json')
+    fetch('https://raw.githubusercontent.com/serezaolejnikov/museums.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Ошибка сети: ' + response.statusText);
