@@ -26,29 +26,20 @@
             maxZoom: 18,
         }).addTo(mymap);
 
-        fetch('/museums')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(museum => {
-                    var marker = L.marker(museum.location).addTo(mymap);
-                    // Исправления в отображении информации
-                    marker.bindPopup(`
-                        <b>${museum.name}</b><br>
-                        Часы работы: ${museum.hours}<br>
-                        Цена: ${museum.price}<br>
-                        <a href="${museum.website}" target="_blank">Официальный сайт</a>
-                    `);
-                    marker.on('click', function() {
-                        document.getElementById('info').innerHTML = `
-                            <b>${museum.name}</b><br>
-                            Часы работы: ${museum.hours}<br>
-                            Цена: ${museum.price}<br>
-                            <a href="${museum.website}" target="_blank">Официальный сайт</a>
-                        `;
-                    });
-                });
-            })
-            .catch(error => console.error('Ошибка при загрузке данных:', error));
+      fetch('https://serezaolejnikov8209-ship-it.github.io/museums.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        // Здесь добавьте код для отрисовки кружков на карте на основе данных
+    })
+    .catch(error => {
+        console.error('Ошибка при загрузке данных:', error);
+    });
     </script>
 </body>
 </html>
