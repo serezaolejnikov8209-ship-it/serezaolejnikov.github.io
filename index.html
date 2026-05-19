@@ -3,43 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карты музеев Москвы</title>
+    <title>Карта музеев</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         #map {
-            height: 500px;
-        }
-        .info {
-            padding: 10px;
+            height: 600px; /* Высота карты */
+            width: 100%;   /* Ширина карты */
         }
     </style>
 </head>
 <body>
-    <div id="map"></div>
-    <div id="info" class="info"></div>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var mymap = L.map('map').setView([55.7558, 37.6173], 12);
+<h1>Карта музеев</h1>
+<div id="map"></div>
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-        }).addTo(mymap);
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Инициализация карты
+    const map = L.map('map').setView([55.7558, 37.6173], 10); // Центр карты на Москве
 
-      fetch('https://serezaolejnikov8209-ship-it.github.io/museums.json')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        // Здесь добавьте код для отрисовки кружков на карте на основе данных
-    })
-    .catch(error => {
-        console.error('Ошибка при загрузке данных:', error);
-    });
-    </script>
+    // Добавление слоя карты
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Загрузка данных о музеях
+    fetch('https://serezaolejnikov8209-ship-it.github.io/museums.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка сети: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(museum => {
+                // Добавление кружка для каждого музея
+                const marker = L.marker(museum.location).addTo(map);
+                marker.bindPopup(`<b>museum.name</b><br>{museum.name}</b><br>museum.name</b><br>{museum.hours}<br>Цена: museum.price<br><ahref="{museum.price}<br><a href="museum.price<br><ahref="{museum.website}" target="_blank">Сайт</a>`);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке данных:', error);
+        });
+</script>
+
 </body>
 </html>
