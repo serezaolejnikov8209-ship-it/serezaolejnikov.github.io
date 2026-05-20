@@ -37,7 +37,7 @@
     .then(data => {
         data.forEach(museum => {
             const marker = L.marker(museum.location).addTo(map);
-            marker.bindPopup(`<b>${museum.name}</b><br>Часы: ${museum.hours}<br>Цена: ${museum.price}<br><a href="${museum.website}" target="_blank">Сайт</a>`);
+            marker.bind Popup(`<b>${museum.name}</b><br>Часы: ${museum.hours}<br>Цена: ${museum.price}<br><a href="${museum.website}" target="_blank">Сайт</a>`);
         });
     })
     .catch(error => console.error('Ошибка при загрузке данных:', error));
