@@ -30,22 +30,17 @@
 
     // Загрузка данных о музеях
     fetch('https://raw.githubusercontent.com/serezaolejnikov/museums.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка сети: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(museum => {
-                // Добавление кружка для каждого музея
-                const marker = L.marker(museum.location).addTo(map);
-                marker.bindPopup(`<b>museum.name</b><br>{museum.name}</b><br>museum.name</b><br>{museum.hours}<br>Цена: museum.price<br><ahref="{museum.price}<br><a href="museum.price<br><ahref="{museum.website}" target="_blank">Сайт</a>`);
-            });
-        })
-        .catch(error => {
-            console.error('Ошибка при загрузке данных:', error);
+    .then(response => {
+        if (!response.ok) throw new Error('Ошибка сети: ' + response.statusText);
+        return response.json();
+    })
+    .then(data => {
+        data.forEach(museum => {
+            const marker = L.marker(museum.location).addTo(map);
+            marker.bindPopup(`<b>${museum.name}</b><br>Часы: ${museum.hours}<br>Цена: ${museum.price}<br><a href="${museum.website}" target="_blank">Сайт</a>`);
         });
+    })
+    .catch(error => console.error('Ошибка при загрузке данных:', error));
 </script>
 
 </body>
